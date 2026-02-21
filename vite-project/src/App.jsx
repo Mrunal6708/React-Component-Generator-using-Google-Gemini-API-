@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import './App.css'
+import { generateContent } from './helper';
 
 //  console.log(import.meta.env.VITE_GOOGLE_API_KEY)  
 
@@ -22,7 +23,9 @@ const App=()=> {
     }
     setInfo((prev)=>({...prev,loading:true,error:""}));
     //api call to generate the component
-  }, [info?.userQuery]);
+    generateContent();
+  },
+  [info?.userQuery]);
 
 
   return (

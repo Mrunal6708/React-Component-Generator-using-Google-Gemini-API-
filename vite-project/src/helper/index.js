@@ -1,61 +1,61 @@
 import { GoogleGenAI } from "@google/genai";
-
+import.meta.env.VITE_GOOGLE_API_KEY;
 const GEMINI_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
-const ai = new GoogleGenAI({apikey: GEMINI_API_KEY});
+const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 export const generateContent = async (userQuery) => {
-  const prompt = promptGenerator(userQuery);
-  const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
-    contents: prompt,
-  });
-  return response;
-}
+	const prompt = promptGenerator(userQuery);
+	const response = await ai.models.generateContent({
+		model: "gemini-3gemini-3-flash-preview",
+		contents: prompt,
+	});
+	return response;
+};
+
 export const promptGenerator = (userQuery) => {
-    return `Create a simple React functional component based on this description: "${userQuery}"
-    
-    
-    Requirements:
-    - Use React.createElement instead of JSX syntax
-    - Keep it simple, no imports needed
-    - Name the function 'GeneratedComponent'
-    - Use inline styles as regular JavaScript objects
-    - Don't use any JSX syntax, use React.createElement instead
-    - Don't include any markdown or code block syntax
-    - Don't include any export statements
+	return `Create a simple React functional component based on this description: "${userQuery}"
 
-    Example format:
-    function GeneratedComponent() {
-    return React.createElement(
+Requirements:
+- Use React.createElement instead of JSX syntax
+- Keep it simple, no imports needed
+- Name the function 'GeneratedComponent'
+- Use inline styles as regular JavaScript objects
+- Don't use any JSX syntax, use React.createElement instead
+- Don't include any markdown or code block syntax
+- Don't include any export statements
+
+Example format:
+function GeneratedComponent() {
+  return React.createElement(
     'div',
-    {style:{padding: '10px'}},
+    { style: { padding: '10px' } },
     React.createElement(
-    'button',
-    {
-    style: {
-    backgroundColor:'blue',
-    color:'white',
-    padding:'10px',
-    },
-    onClick:() => alert('Clicked')
-    },
-     'Click Me'
-    ))
-    }  ;
-    
-    Return only the Component code without any markdown formating or code block syntax.`;
+      'button',
+      { 
+        style: { 
+          backgroundColor: 'blue',
+          color: 'white',
+          padding: '10px'
+        },
+        onClick: () => alert('Clicked!')
+      },
+      'Click me'
+    )
+  );
+}
 
-    
+Return only the component code without any markdown formatting or code block syntax.`;
 };
 
 export const purifyCode = (code) => {
-    // remove any import statement
-    code = code.replace(/import\s+.*?;\s*/g, "");
-    // remove any export statement
-    code = code.replace(/export\s+.*?;\s*/g, "");
-    // remove language specifiers
-    code = code.replace(/\/\/\s*language:\s*\w+/g, "");
+	//remove any import statements
+	code = code.replace(/import\s+.*?;\s*/g, "");
 
-    return code.trim();
-}
+	//remove language specifiers
+	code = code.replace(/\/\/\s*language:\s*\w+/g, "");
+	//remove any export statements
+	code = code.replace(/export\s+.*?;\s*/g, "");
+
+	return code.trim();
+};
